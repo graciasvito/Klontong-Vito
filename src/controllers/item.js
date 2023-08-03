@@ -110,6 +110,7 @@ module.exports = {
           []
         );
       }
+      console.log(result);
 
       return wrapper.response(
         response,
