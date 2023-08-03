@@ -26,13 +26,11 @@ module.exports = {
         );
       }
       // save data by model
-      const result = await authModel.createUser(setData);
-
+      await authModel.createUser(setData);
       return wrapper.response(
         response,
         200,
-        "Success Register Please Check Your Email",
-        { userId: result.data[0].userId }
+        "Success Register, You Can Login Now"
       );
     } catch (error) {
       const {
@@ -40,7 +38,7 @@ module.exports = {
         statusText = "Internal Server Error",
         error: errorData = null,
       } = error;
-      console.log(error);
+      // console.log(error);
       return wrapper.response(response, status, statusText, errorData);
     }
   },

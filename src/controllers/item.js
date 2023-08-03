@@ -9,6 +9,7 @@ module.exports = {
       const {
         categoryId,
         categoryName,
+        sku,
         name,
         description,
         weight,
@@ -21,6 +22,7 @@ module.exports = {
       // console.log(request.file);
       const setData = {
         name,
+        sku,
         categoryId,
         categoryName,
         description,
@@ -31,8 +33,8 @@ module.exports = {
         harga,
       };
 
-      const result = await productModel.createItem(setData);
-
+      const result = await itemModel.createItem(setData);
+      console.log(result);
       return wrapper.response(
         response,
         result.status,
@@ -45,6 +47,7 @@ module.exports = {
         statusText = "Internal Server Error",
         error: errorData = null,
       } = error;
+      console.log(error);
       return wrapper.response(response, status, statusText, errorData);
     }
   },
@@ -52,7 +55,7 @@ module.exports = {
     try {
       // console.log(request.query);
       let { page, limit } = request.query;
-      const { search, sort, sortType } = request.query;
+      // const { search, sort, sortType } = request.query;
       page = +page;
       limit = +limit;
 

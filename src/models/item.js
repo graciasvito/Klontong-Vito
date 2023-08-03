@@ -1,7 +1,6 @@
 const supabase = require("../config/supabase");
 
 module.exports = {
-  showGreetings: () => new Promise((resolve, reject) => {}),
   getCountItem: () =>
     new Promise((resolve, reject) => {
       supabase
@@ -34,10 +33,7 @@ module.exports = {
           }
         });
     }),
-  // new Promise(async (resolve, reject) => {
-  //   const result = await supabase.from("Item").select("*");
-  //   console.log(result);
-  // }),
+
   getItemById: (id) =>
     new Promise((resolve, reject) => {
       // SELECT * FROM Item WHERE id = "123"
