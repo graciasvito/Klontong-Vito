@@ -14,26 +14,44 @@ module.exports = {
           }
         });
     }),
-  getAllItem: (offset, limit) =>
+  getAllItem: (offset, limit, searchName) =>
     new Promise((resolve, reject) => {
       // page = 1
       // limit = 10
       // offset = 0
       // .range(0, 9) // offset(0) + limit(10) - 1 = 9
-      supabase
-        .from("item")
-        .select("*")
-        .range(offset, offset + limit - 1)
-        // input query tambahan untuk sort dan search
-        .then((result) => {
-          if (!result.error) {
-            resolve(result);
-          } else {
-            reject(result);
-          }
-        });
-    }),
 
+      if (searchName) {
+        supabase
+          .from("item")
+          .select("*")
+          .range(offset, offset + limit - 1)
+          .ilike("name", searchName)
+          // input query tambahan untuk sort dan search
+          .then((result) => {
+            if (!result.error) {
+              resolve(result);
+            } else {
+              reject(result);
+            }
+          });
+      } else {
+        supabase
+          .from("item")
+          .select("*")
+          .range(offset, offset + limit - 1)
+          //
+          // .ilike("name", searchName)
+          // input query tambahan untuk sort dan search
+          .then((result) => {
+            if (!result.error) {
+              resolve(result);
+            } else {
+              reject(result);
+            }
+          });
+      }
+    }),
   getItemById: (id) =>
     new Promise((resolve, reject) => {
       // SELECT * FROM Item WHERE id = "123"

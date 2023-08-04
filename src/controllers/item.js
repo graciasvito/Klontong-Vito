@@ -54,10 +54,11 @@ module.exports = {
   getAllItem: async (request, response) => {
     try {
       // console.log(request.query);
-      let { page, limit } = request.query;
+      let { page, limit, search } = request.query;
       // const { search, sort, sortType } = request.query;
       page = +page;
       limit = +limit;
+      searchName = `%${search}%`;
 
       const totalData = await itemModel.getCountItem();
       const totalPage = Math.ceil(totalData / limit);
@@ -77,7 +78,8 @@ module.exports = {
       //   sortType = false;
       // }
 
-      const result = await itemModel.getAllItem(offset, limit);
+      const result = await itemModel.getAllItem(offset, limit, searchName);
+      console.log(result);
 
       return wrapper.response(
         response,
